@@ -1,19 +1,26 @@
 import React from "react";
 import { ImageBackground, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
-export default function HomeScreen({ navigation }) {
+export default function MenuScreen({ navigation }) {
   return (
     <ImageBackground
       source={require("../assets/icon.png")}
       style={styles.background}
       resizeMode="cover"
     >
-      <View style={styles.container}>
-        <Text style={styles.title}>NOSOTROS</Text>
-        <Text style={styles.subtitle}>Pantalla temporal de colaboradores</Text>
+      <View style={styles.overlay}>
+        <Text style={styles.title}>MENU PRINCIPAL</Text>
 
-        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate("Menu")}>
-          <Text style={styles.buttonText}>Volver al menu</Text>
+        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate("Orders")}>
+          <Text style={styles.buttonText}>Empleado</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate("Costumers")}>
+          <Text style={styles.buttonText}>Cliente</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate("Home")}>
+          <Text style={styles.buttonText}>Nosotros</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
@@ -32,7 +39,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
   },
-  container: {
+  overlay: {
     marginHorizontal: 24,
     padding: 24,
     borderRadius: 16,
@@ -43,25 +50,22 @@ const styles = StyleSheet.create({
     color: "#fff",
     textAlign: "center",
     fontSize: 22,
-    marginBottom: 8,
+    marginTop: 8,
+    marginBottom: 24,
     fontWeight: "bold",
-  },
-  subtitle: {
-    color: "#fff",
-    textAlign: "center",
-    marginBottom: 20,
   },
   button: {
     backgroundColor: "#2a9d8f",
     padding: 14,
     borderRadius: 10,
-    marginBottom: 10,
+    marginBottom: 8,
     width: 220,
   },
   exitButton: {
     backgroundColor: "#e63946",
     padding: 14,
     borderRadius: 10,
+    marginTop: 24,
     width: 220,
   },
   buttonText: {

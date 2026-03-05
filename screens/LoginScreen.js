@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import {View, Text, TextInput, TouchableOpacity, StyleSheet, ImageBackground, Alert,} from "react-native";
+import {Alert, ImageBackground, StyleSheet, Text, TextInput, TouchableOpacity, View,} from "react-native";
 
 const USERS = [
   { username: "admin", password: "1234" },
@@ -13,25 +13,25 @@ export default function LoginScreen({ navigation }) {
 
   const handleLogin = () => {
     const userFound = USERS.find(
-      (user) =>
-        user.username === username && user.password === password
+      (user) => user.username === username.trim() && user.password === password
     );
 
-    if (userFound) {
-      navigation.replace("Home"); // IMPORTANTE: replace para que no regrese
-    } else {
-      Alert.alert("Error", "Usuario o contraseña incorrectos");
+    if (!userFound) {
+      Alert.alert("Error", "Usuario o contrasena incorrectos");
+      return;
     }
+
+    navigation.replace("Menu");
   };
 
   return (
     <ImageBackground
-      source={require("../assets/login-bg.jpg")}
+      source={require("../assets/splash-icon.png")}
       style={styles.background}
       resizeMode="cover"
     >
       <View style={styles.container}>
-        <Text style={styles.title}>Pizzería App 🍕</Text>
+        <Text style={styles.title}>Pizzeria App</Text>
 
         <TextInput
           placeholder="Usuario"
@@ -39,10 +39,11 @@ export default function LoginScreen({ navigation }) {
           style={styles.input}
           value={username}
           onChangeText={setUsername}
+          autoCapitalize="none"
         />
 
         <TextInput
-          placeholder="Contraseña"
+          placeholder="Contrasena"
           placeholderTextColor="#ccc"
           style={styles.input}
           secureTextEntry

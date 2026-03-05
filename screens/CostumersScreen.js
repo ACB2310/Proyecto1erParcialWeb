@@ -1,7 +1,7 @@
 import React from "react";
 import { ImageBackground, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
-export default function HomeScreen({ navigation }) {
+export default function CostumersScreen({ navigation }) {
   return (
     <ImageBackground
       source={require("../assets/icon.png")}
@@ -9,11 +9,14 @@ export default function HomeScreen({ navigation }) {
       resizeMode="cover"
     >
       <View style={styles.container}>
-        <Text style={styles.title}>NOSOTROS</Text>
-        <Text style={styles.subtitle}>Pantalla temporal de colaboradores</Text>
+        <Text style={styles.title}>CLIENTE</Text>
 
         <TouchableOpacity style={styles.button} onPress={() => navigation.navigate("Menu")}>
-          <Text style={styles.buttonText}>Volver al menu</Text>
+          <Text style={styles.buttonText}>MENU</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate("Order")}>
+          <Text style={styles.buttonText}>ORDEN</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
@@ -43,25 +46,22 @@ const styles = StyleSheet.create({
     color: "#fff",
     textAlign: "center",
     fontSize: 22,
-    marginBottom: 8,
+    marginTop: 8,
+    marginBottom: 24,
     fontWeight: "bold",
-  },
-  subtitle: {
-    color: "#fff",
-    textAlign: "center",
-    marginBottom: 20,
   },
   button: {
     backgroundColor: "#2a9d8f",
     padding: 14,
     borderRadius: 10,
-    marginBottom: 10,
+    marginBottom: 8,
     width: 220,
   },
   exitButton: {
     backgroundColor: "#e63946",
     padding: 14,
     borderRadius: 10,
+    marginTop: 24,
     width: 220,
   },
   buttonText: {
