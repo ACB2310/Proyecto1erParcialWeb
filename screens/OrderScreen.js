@@ -11,34 +11,42 @@ import {
 
 import { useOrders } from "../context/OrdersContext";
 
+const PIZZA_TYPES = ["HAWAIANA", "PEPPERONI", "CUATRO QUESOS", "MEXICANA"];
+const PIZZA_SIZES = ["Individual", "Mediana", "Grande"];
+
 export default function OrderScreen({ navigation }) {
   const { addOrder } = useOrders();
-  const [customer, setCustomer] = useState("");
-  const [pizza, setPizza] = useState("");
+
+  const [selectedType, setSelectedType] = useState(PIZZA_TYPES[0]);
+  const [typeExpanded, setTypeExpanded] = useState(false);
+
+  const [selectedSize, setSelectedSize] = useState(PIZZA_SIZES[0]);
+  const [sizeExpanded, setSizeExpanded] = useState(false);
+
   const [quantity, setQuantity] = useState("");
 
   const handleAddOrder = () => {
-    if (!customer.trim() || !pizza.trim() || !quantity.trim()) {
-      Alert.alert("Missing data", "Please complete all fields.");
+    if (!quantity.trim()) {
+      Alert.alert("Faltan datos", "Ingresa la cantidad de pizzas.");
       return;
     }
 
     const parsedQty = Number(quantity);
     if (!Number.isFinite(parsedQty) || parsedQty <= 0) {
-      Alert.alert("Invalid quantity", "Quantity must be a number greater than 0.");
+      Alert.alert("Cantidad invalida", "La cantidad debe ser un numero mayor a 0.");
       return;
     }
 
     addOrder({
-      customer: customer.trim(),
-      pizza: pizza.trim(),
+      customer: "Cliente mostrador",
+      pizza: `${selectedType} - ${selectedSize}`,
       quantity: parsedQty,
+      type: selectedType,
+      size: selectedSize,
     });
 
-    setCustomer("");
-    setPizza("");
     setQuantity("");
-    Alert.alert("Order saved", "The order was added successfully.");
+    Alert.alert("Orden guardada", "La orden de pizza se guardo correctamente.");
   };
 
   return (
@@ -48,25 +56,69 @@ export default function OrderScreen({ navigation }) {
       resizeMode="cover"
     >
       <View style={styles.container}>
-        <Text style={styles.title}>Create Order</Text>
+        <Text style={styles.title}>ORDEN</Text>
+
+        <View style={styles.dropdownWrapper}>
+          <TouchableOpacity
+            style={styles.dropdownButton}
+            onPress={() => {
+              setTypeExpanded((prev) => !prev);
+              setSizeExpanded(false);
+            }}
+          >
+            <Text style={styles.dropdownText}>{selectedType}</Text>
+          </TouchableOpacity>
+
+          {typeExpanded && (
+            <View style={styles.dropdownMenu}>
+              {PIZZA_TYPES.map((option) => (
+                <TouchableOpacity
+                  key={option}
+                  style={styles.dropdownItem}
+                  onPress={() => {
+                    setSelectedType(option);
+                    setTypeExpanded(false);
+                  }}
+                >
+                  <Text style={styles.dropdownItemText}>{option}</Text>
+                </TouchableOpacity>
+              ))}
+            </View>
+          )}
+        </View>
+
+        <View style={styles.dropdownWrapper}>
+          <TouchableOpacity
+            style={styles.dropdownButton}
+            onPress={() => {
+              setSizeExpanded((prev) => !prev);
+              setTypeExpanded(false);
+            }}
+          >
+            <Text style={styles.dropdownText}>{selectedSize}</Text>
+          </TouchableOpacity>
+
+          {sizeExpanded && (
+            <View style={styles.dropdownMenu}>
+              {PIZZA_SIZES.map((option) => (
+                <TouchableOpacity
+                  key={option}
+                  style={styles.dropdownItem}
+                  onPress={() => {
+                    setSelectedSize(option);
+                    setSizeExpanded(false);
+                  }}
+                >
+                  <Text style={styles.dropdownItemText}>{option}</Text>
+                </TouchableOpacity>
+              ))}
+            </View>
+          )}
+        </View>
 
         <TextInput
           style={styles.input}
-          placeholder="Customer name"
-          placeholderTextColor="#ddd"
-          value={customer}
-          onChangeText={setCustomer}
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Pizza type"
-          placeholderTextColor="#ddd"
-          value={pizza}
-          onChangeText={setPizza}
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Quantity"
+          placeholder="Cantidad"
           placeholderTextColor="#ddd"
           keyboardType="numeric"
           value={quantity}
@@ -74,19 +126,18 @@ export default function OrderScreen({ navigation }) {
         />
 
         <TouchableOpacity style={styles.button} onPress={handleAddOrder}>
-          <Text style={styles.buttonText}>Add Order</Text>
+          <Text style={styles.buttonText}>Guardar</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.secondaryButton} onPress={() => navigation.navigate("Orders")}>
-          <Text style={styles.buttonText}>Go to Orders</Text>
-        </TouchableOpacity>
+
         <TouchableOpacity style={styles.secondaryButton} onPress={() => navigation.navigate("Menu")}>
-          <Text style={styles.buttonText}>Back to Menu</Text>
+          <Text style={styles.buttonText}>Volver al menu</Text>
         </TouchableOpacity>
+
         <TouchableOpacity
           style={styles.exitButton}
           onPress={() => navigation.reset({ index: 0, routes: [{ name: "Login" }] })}
         >
-          <Text style={styles.buttonText}>EXIT</Text>
+          <Text style={styles.buttonText}>Salir</Text>
         </TouchableOpacity>
       </View>
     </ImageBackground>
@@ -110,6 +161,31 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontWeight: "bold",
     marginBottom: 16,
+  },
+  dropdownWrapper: {
+    marginBottom: 10,
+  },
+  dropdownButton: {
+    backgroundColor: "rgba(255,255,255,0.2)",
+    padding: 12,
+    borderRadius: 10,
+  },
+  dropdownText: {
+    color: "#fff",
+  },
+  dropdownMenu: {
+    backgroundColor: "rgba(255,255,255,0.14)",
+    borderRadius: 10,
+    marginTop: 6,
+    overflow: "hidden",
+  },
+  dropdownItem: {
+    padding: 12,
+    borderBottomWidth: 1,
+    borderBottomColor: "rgba(255,255,255,0.12)",
+  },
+  dropdownItemText: {
+    color: "#fff",
   },
   input: {
     backgroundColor: "rgba(255,255,255,0.2)",

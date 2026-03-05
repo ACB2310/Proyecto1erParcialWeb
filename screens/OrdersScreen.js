@@ -13,6 +13,13 @@ import { useOrders } from "../context/OrdersContext";
 export default function OrdersScreen({ navigation }) {
   const { orders } = useOrders();
 
+  const formattedOrders = orders.map((order) => {
+    const type = order.type || "CLASICA";
+    const size = order.size || "Mediana";
+    const amount = order.quantity ?? order.amount ?? "0";
+    return `${type} - ${size} - Cantidad: ${amount}`;
+  });
+
   return (
     <ImageBackground
       source={require("../assets/icon.png")}
@@ -20,36 +27,25 @@ export default function OrdersScreen({ navigation }) {
       resizeMode="cover"
     >
       <View style={styles.container}>
-        <Text style={styles.title}>Orders</Text>
-        <Text style={styles.subtitle}>Registered orders: {orders.length}</Text>
+        <Text style={styles.title}>ORDENES</Text>
 
         <ScrollView style={styles.list} contentContainerStyle={styles.listContent}>
-          {orders.length === 0 ? (
-            <Text style={styles.empty}>No orders yet. Go to Order and add one.</Text>
+          {formattedOrders.length === 0 ? (
+            <Text style={styles.empty}>No hay ordenes</Text>
           ) : (
-            orders.map((order, index) => (
-              <View key={order.id} style={styles.card}>
-                <Text style={styles.cardText}>#{index + 1}</Text>
-                <Text style={styles.cardText}>Customer: {order.customer}</Text>
-                <Text style={styles.cardText}>Pizza: {order.pizza}</Text>
-                <Text style={styles.cardText}>Quantity: {order.quantity}</Text>
-                <Text style={styles.timeText}>{order.createdAt}</Text>
+            formattedOrders.map((orderText, index) => (
+              <View key={`${orderText}-${index}`} style={styles.orderItem}>
+                <Text style={styles.orderText}>{orderText}</Text>
               </View>
             ))
           )}
         </ScrollView>
 
-        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate("Order")}>
-          <Text style={styles.buttonText}>Create New Order</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.secondaryButton} onPress={() => navigation.navigate("Menu")}>
-          <Text style={styles.buttonText}>Back to Menu</Text>
-        </TouchableOpacity>
         <TouchableOpacity
           style={styles.exitButton}
           onPress={() => navigation.reset({ index: 0, routes: [{ name: "Login" }] })}
         >
-          <Text style={styles.buttonText}>EXIT</Text>
+          <Text style={styles.buttonText}>Salir</Text>
         </TouchableOpacity>
       </View>
     </ImageBackground>
@@ -74,56 +70,37 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 28,
     fontWeight: "bold",
-  },
-  subtitle: {
-    color: "#fff",
-    textAlign: "center",
     marginTop: 4,
-    marginBottom: 12,
+    marginBottom: 16,
   },
   list: {
     flex: 1,
-    marginBottom: 12,
   },
   listContent: {
-    paddingBottom: 8,
+    paddingBottom: 12,
   },
   empty: {
     color: "#fff",
     textAlign: "center",
+    fontSize: 18,
     marginTop: 20,
   },
-  card: {
-    backgroundColor: "rgba(255,255,255,0.14)",
+  orderItem: {
+    backgroundColor: "#ffffff",
     borderRadius: 10,
-    padding: 12,
+    padding: 16,
     marginBottom: 8,
   },
-  cardText: {
-    color: "#fff",
-    marginBottom: 2,
-  },
-  timeText: {
-    color: "#e0e0e0",
-    fontSize: 12,
-    marginTop: 6,
-  },
-  button: {
-    backgroundColor: "#2a9d8f",
-    padding: 13,
-    borderRadius: 10,
-    marginBottom: 8,
-  },
-  secondaryButton: {
-    backgroundColor: "#457b9d",
-    padding: 13,
-    borderRadius: 10,
-    marginBottom: 8,
+  orderText: {
+    color: "#1f2937",
+    fontSize: 15,
+    fontWeight: "600",
   },
   exitButton: {
     backgroundColor: "#e63946",
     padding: 13,
     borderRadius: 10,
+    marginTop: 12,
   },
   buttonText: {
     color: "#fff",
