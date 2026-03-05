@@ -19,7 +19,7 @@ export default function MenuScreen({ navigation }) {
           <Text style={styles.buttonText}>Cliente</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate("Home")}>
+        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate("Us")}>
           <Text style={styles.buttonText}>Nosotros</Text>
         </TouchableOpacity>
 

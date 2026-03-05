@@ -3,8 +3,8 @@ import {Alert, ImageBackground, StyleSheet, Text, TextInput, TouchableOpacity, V
 
 const USERS = [
   { username: "admin", password: "1234" },
-  { username: "juan", password: "abcd" },
-  { username: "maria", password: "5678" },
+  { username: "Alan", password: "abcd" },
+  { username: "Rodrigo", password: "5678" },
 ];
 
 export default function LoginScreen({ navigation }) {

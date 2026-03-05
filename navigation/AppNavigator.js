@@ -8,6 +8,8 @@ import MenuScreen from "../screens/MenuScreen";
 import CostumersScreen from "../screens/CostumersScreen";
 import OrderScreen from "../screens/OrderScreen";
 import OrdersScreen from "../screens/OrdersScreen";
+import UsScreen from "../screens/usScreen";
+import MenuPizzasScreen from "../screens/MenuPizzasScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -21,6 +23,8 @@ export default function AppNavigator() {
         <Stack.Screen name="Costumers" component={CostumersScreen} />
         <Stack.Screen name="Order" component={OrderScreen} />
         <Stack.Screen name="Orders" component={OrdersScreen} />
+        <Stack.Screen name="Us" component={UsScreen} />
+        <Stack.Screen name="MenuPizzas" component={MenuPizzasScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

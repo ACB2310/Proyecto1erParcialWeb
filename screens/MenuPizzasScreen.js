@@ -1,7 +1,7 @@
 import React from "react";
 import { ImageBackground, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
-export default function HomeScreen({ navigation }) {
+export default function MenuPizzasScreen({ navigation }) {
   return (
     <ImageBackground
       source={require("../assets/icon.png")}
@@ -9,40 +9,36 @@ export default function HomeScreen({ navigation }) {
       resizeMode="cover"
     >
       <View style={styles.container}>
-        <Text style={styles.title}>PIZZERÍA APP</Text>
 
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => navigation.navigate("Orders")}
-        >
-          <Text style={styles.buttonText}>Empleado</Text>
-        </TouchableOpacity>
+        <Text style={styles.title}>MENÚ DE PIZZAS</Text>
+
+        <Text style={styles.section}>Tamaños</Text>
+
+        <Text style={styles.item}>Individual - $90</Text>
+        <Text style={styles.item}>Mediana - $150</Text>
+        <Text style={styles.item}>Grande - $250</Text>
+
+        <Text style={styles.section}>Especialidades</Text>
+
+        <Text style={styles.item}>Hawaiana</Text>
+        <Text style={styles.item}>Cuatro Quesos</Text>
+        <Text style={styles.item}>Peperoni</Text>
+        <Text style={styles.item}>Mexicana</Text>
 
         <TouchableOpacity
           style={styles.button}
           onPress={() => navigation.navigate("Costumers")}
         >
-          <Text style={styles.buttonText}>Cliente</Text>
+          <Text style={styles.buttonText}>Volver</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
-          style={styles.button}
-          onPress={() => navigation.navigate("Us")}
+          style={styles.menuButton}
+          onPress={() => navigation.navigate("Menu")}
         >
-          <Text style={styles.buttonText}>Nosotros</Text>
+          <Text style={styles.buttonText}>Volver al menú</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity
-          style={styles.exitButton}
-          onPress={() =>
-            navigation.reset({
-              index: 0,
-              routes: [{ name: "Login" }],
-            })
-          }
-        >
-          <Text style={styles.buttonText}>Salir</Text>
-        </TouchableOpacity>
       </View>
     </ImageBackground>
   );
@@ -64,20 +60,32 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontSize: 26,
     fontWeight: "bold",
-    marginBottom: 24,
+    marginBottom: 16,
+  },
+  section: {
+    color: "#fff",
+    fontSize: 20,
+    fontWeight: "bold",
+    marginTop: 10,
+    marginBottom: 8,
+  },
+  item: {
+    color: "#fff",
+    fontSize: 16,
+    marginBottom: 4,
   },
   button: {
     backgroundColor: "#2a9d8f",
     padding: 14,
     borderRadius: 10,
-    marginBottom: 10,
+    marginTop: 20,
     width: 220,
   },
-  exitButton: {
-    backgroundColor: "#e63946",
+  menuButton: {
+    backgroundColor: "#264653",
     padding: 14,
     borderRadius: 10,
-    marginTop: 20,
+    marginTop: 10,
     width: 220,
   },
   buttonText: {
