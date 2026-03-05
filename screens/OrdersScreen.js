@@ -1,12 +1,5 @@
 import React from "react";
-import {
-  ImageBackground,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { ImageBackground, ScrollView, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 
 import { useOrders } from "../context/OrdersContext";
 
@@ -22,14 +15,17 @@ export default function OrdersScreen({ navigation }) {
 
   return (
     <ImageBackground
-      source={require("../assets/icon.png")}
+      source={require("../assets/background_general.png")}
       style={styles.background}
       resizeMode="cover"
     >
       <View style={styles.container}>
         <Text style={styles.title}>ORDENES</Text>
 
-        <ScrollView style={styles.list} contentContainerStyle={styles.listContent}>
+        <ScrollView
+          style={styles.list}
+          contentContainerStyle={styles.listContent}
+        >
           {formattedOrders.length === 0 ? (
             <Text style={styles.empty}>No hay ordenes</Text>
           ) : (
@@ -42,8 +38,20 @@ export default function OrdersScreen({ navigation }) {
         </ScrollView>
 
         <TouchableOpacity
+          style={styles.menuButton}
+          onPress={() => navigation.navigate("Menu")}
+        >
+          <Text style={styles.buttonText}>Volver al Menú</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
           style={styles.exitButton}
-          onPress={() => navigation.reset({ index: 0, routes: [{ name: "Login" }] })}
+          onPress={() =>
+            navigation.reset({
+              index: 0,
+              routes: [{ name: "Login" }],
+            })
+          }
         >
           <Text style={styles.buttonText}>Salir</Text>
         </TouchableOpacity>
@@ -96,11 +104,17 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: "600",
   },
+  menuButton: {
+    backgroundColor: "#457b9d",
+    padding: 13,
+    borderRadius: 10,
+    marginTop: 12,
+  },
   exitButton: {
     backgroundColor: "#e63946",
     padding: 13,
     borderRadius: 10,
-    marginTop: 12,
+    marginTop: 10,
   },
   buttonText: {
     color: "#fff",

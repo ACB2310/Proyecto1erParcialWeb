@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import {Alert, ImageBackground, StyleSheet, Text, TextInput, TouchableOpacity, View,} from "react-native";
+import { Alert, Image, ImageBackground, StyleSheet, Text, TextInput, TouchableOpacity, View,} from "react-native";
 
 const USERS = [
   { username: "admin", password: "1234" },
@@ -13,11 +13,13 @@ export default function LoginScreen({ navigation }) {
 
   const handleLogin = () => {
     const userFound = USERS.find(
-      (user) => user.username === username.trim() && user.password === password
+      (user) =>
+        user.username === username.trim() &&
+        user.password === password
     );
 
     if (!userFound) {
-      Alert.alert("Error", "Usuario o contrasena incorrectos");
+      Alert.alert("Error", "Usuario o contraseña incorrectos");
       return;
     }
 
@@ -26,12 +28,19 @@ export default function LoginScreen({ navigation }) {
 
   return (
     <ImageBackground
-      source={require("../assets/splash-icon.png")}
+      source={require("../assets/background_login.png")}
       style={styles.background}
       resizeMode="cover"
     >
       <View style={styles.container}>
         <Text style={styles.title}>Pizzeria App</Text>
+
+        <Image
+          source={require("../assets/ars_pizzas_logo.png")}
+          style={styles.logo}
+          resizeMode="contain"
+          marginBottom="15"
+        />
 
         <TextInput
           placeholder="Usuario"
@@ -43,7 +52,7 @@ export default function LoginScreen({ navigation }) {
         />
 
         <TextInput
-          placeholder="Contrasena"
+          placeholder="Contraseña"
           placeholderTextColor="#ccc"
           style={styles.input}
           secureTextEntry
@@ -74,8 +83,14 @@ const styles = StyleSheet.create({
     fontSize: 28,
     color: "white",
     textAlign: "center",
-    marginBottom: 20,
+    marginBottom: 10,
     fontWeight: "bold",
+  },
+  logo: {
+    width: 130,
+    height: 130,
+    alignSelf: "center",
+    marginBottom: 20,
   },
   input: {
     backgroundColor: "rgba(255,255,255,0.2)",

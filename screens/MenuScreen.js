@@ -1,15 +1,24 @@
 import React from "react";
-import { ImageBackground, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { ImageBackground,Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 export default function MenuScreen({ navigation }) {
   return (
     <ImageBackground
-      source={require("../assets/icon.png")}
+      source={require("../assets/background_general.png")}
       style={styles.background}
       resizeMode="cover"
     >
+      
+
       <View style={styles.overlay}>
         <Text style={styles.title}>MENU PRINCIPAL</Text>
+        <Image
+          source={require("../assets/ars_pizzas_logo.png")}
+          style={styles.logo}
+          resizeMode="contain"
+          marginBottom="15"
+          marginTop="15"
+        />
 
         <TouchableOpacity style={styles.button} onPress={() => navigation.navigate("Orders")}>
           <Text style={styles.buttonText}>Empleado</Text>

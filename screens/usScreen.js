@@ -1,15 +1,21 @@
 import React from "react";
-import { ImageBackground, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { ImageBackground, Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 export default function UsScreen({ navigation }) {
   return (
     <ImageBackground
-      source={require("../assets/icon.png")}
+      source={require("../assets/background_login.png")}
       style={styles.background}
       resizeMode="cover"
     >
       <View style={styles.container}>
         <Text style={styles.title}>NOSOTROS</Text>
+        <Image
+          source={require("../assets/ars_pizzas_logo.png")}
+          style={styles.logo}
+          resizeMode="contain"
+          marginBottom="15"
+        />
 
         <Text style={styles.text}>
           Esta aplicación fue desarrollada como parte del proyecto del primer

@@ -51,7 +51,7 @@ export default function OrderScreen({ navigation }) {
 
   return (
     <ImageBackground
-      source={require("../assets/icon.png")}
+      source={require("../assets/background_general.png")}
       style={styles.background}
       resizeMode="cover"
     >
